@@ -14,85 +14,82 @@ class HomeController extends GetxController {
   RxString password = "".obs;
   RxBool rememberme = false.obs;
   RxInt nilai = 0.obs;
+  RxBool secureText = true.obs;
 
   late TextEditingController emailC;
   late TextEditingController passwordC;
 
   final box = GetStorage();
 
-  void login() async {
-    Uri url = Uri.parse("https://flutter.ramarumah.id/login.php");
-    try {
-      final Response = await http.post(
-        url,
-        body: {
+  // void login() async {
+  //   Uri url = Uri.parse("https://flutter.ramarumah.id/login.php");
+  //   try {
+  //     final Response = await http.post(
+  //       url,
+  //       body: {
+  //         "email": email.value,
+  //         "password": password.value,
+  //         // "content-type": "application/x-www-form-urlencoded",
+  //       },
+  //       headers: {
+  //         // "content-type": "form-data",
+  //         "content-type": "application/x-www-form-urlencoded",
+  //       },
+  //     );
+
+  //     print((Response != null) ? "ada data" : "tidak ada data");
+  //     var hasil = json.decode(Response.body) as Map<String, dynamic>;
+  //     int value = hasil["value"];
+  //     print(hasil);
+  //     if (value == 1) {
+  //       if (box.read("dataLogin") != null) {
+  //         //hapus data storage
+  //         box.remove("dataLogin");
+  //       }
+  //       if (rememberme.isTrue) {
+  //         //kalau dichecklist simpan data ke get storage
+  //         final box = GetStorage();
+  //         box.write("dataLogin", {
+  //           "email": email.value,
+  //           "password": password.value,
+  //           "rememberme": rememberme.value
+  //         });
+  //       }
+  //       Get.toNamed("/homeScreen");
+  //     } else {
+  //       print("salah Username/Password");
+  //     }
+  //   } catch (err) {
+  //     print(err);
+  //   }
+  // }
+
+  void login() {
+    //ini dummy data
+
+    if (email.value == "a@gmail.com" && password.value == "a") {
+      if (box.read("dataLogin") != null) {
+        //hapus data storage
+        box.remove("dataLogin");
+      }
+      if (rememberme.isTrue) {
+        //kalau dichecklist simpan data ke get storage
+        final box = GetStorage();
+        box.write("dataLogin", {
           "email": email.value,
           "password": password.value,
-          // "content-type": "application/x-www-form-urlencoded",
-        },
-        headers: {
-          // "content-type": "form-data",
-          "content-type": "application/x-www-form-urlencoded",
-        },
-      );
-
-      print((Response != null) ? "ada data" : "tidak ada data");
-      var hasil = json.decode(Response.body) as Map<String, dynamic>;
-      int value = hasil["value"];
-      print(hasil);
-      if (value == 1) {
-        if (box.read("dataLogin") != null) {
-          //hapus data storage
-          box.remove("dataLogin");
-        }
-        if (rememberme.isTrue) {
-          //kalau dichecklist simpan data ke get storage
-          final box = GetStorage();
-          box.write("dataLogin", {
-            "email": email.value,
-            "password": password.value,
-            "rememberme": rememberme.value
-          });
-        }
-        Get.toNamed("/homeScreen");
-      } else {
-        print("salah Username/Password");
+          "rememberme": rememberme.value
+        });
       }
-    } catch (err) {
-      print(err);
+      Get.toNamed("/homeScreen");
+    } else {
+      print("salah password");
     }
   }
 
-  // void login() {
-  //   //ini dummy data
-
-  //   if (email.value == "a@gmail.com" && password.value == "a") {
-  //     if (box.read("dataLogin") != null) {
-  //       //hapus data storage
-  //       box.remove("dataLogin");
-  //     }
-  //     if (rememberme.isTrue) {
-  //       //kalau dichecklist simpan data ke get storage
-  //       final box = GetStorage();
-  //       box.write("dataLogin", {
-  //         "email": email.value,
-  //         "password": password.value,
-  //         "rememberme": rememberme.value
-  //       });
-  //     }
-  //     Get.toNamed("/homeScreen");
-  //   } else {
-  //     print("salah password");
-  //   }
-  // }
-
-  // void cekDataStorage() {
-  //   if (box.read("dataLogin") != null) {
-  //     email.value = box.read("dataLogin")[email];
-  //   } else {
-  //     nilai.value = 0;
-  //   }
-  // }
+  void showHideText() {
+    secureText.value = !secureText.value;
+  }
 
   @override
   void onInit() {

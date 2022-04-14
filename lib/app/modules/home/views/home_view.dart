@@ -79,23 +79,34 @@ class HomeView extends GetView<HomeController> {
                   height: 10,
                 ),
 
-                TextFormField(
-                  controller: passwordC,
-                  autocorrect: false,
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Masukkan Password Anda";
-                    } else {
-                      return null;
-                    }
-                  },
-                  // onSaved: (value) => controller.password.value = value!,
-                  onChanged: (value) {
-                    controller.password.value = value;
-                    // print(controller.email.value);
-                  },
-                  decoration: InputDecoration(labelText: "Password"),
+                Obx(
+                  () => TextFormField(
+                    controller: passwordC,
+                    autocorrect: false,
+                    obscureText: controller.secureText.value,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Masukkan Password Anda";
+                      } else {
+                        return null;
+                      }
+                    },
+                    // onSaved: (value) => controller.password.value = value!,
+                    onChanged: (value) {
+                      controller.password.value = value;
+                      // print(controller.email.value);
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            controller.showHideText();
+                          },
+                          icon: Icon(controller.secureText.value
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
