@@ -3,8 +3,11 @@
 //     final userResults = userResultsFromJson(jsonString);
 
 import 'dart:convert';
+import 'dart:html';
 
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
+import 'package:http/http.dart' as http;
 
 UserResults userResultsFromJson(String str) =>
     UserResults.fromJson(json.decode(str));
@@ -46,7 +49,4 @@ class UserResults {
     if (list == null) return List<UserResults>.empty();
     return list.map((item) => UserResults.fromJson(item)).toList();
   }
-
-// static Future<UserResults> sqlUserConncet({String email, String username, String url})
-
 }

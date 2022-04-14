@@ -4,6 +4,7 @@ import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/views/widgets/signup_screen.dart';
+import '../modules/home/views/widgets/home_screen.dart';
 
 part 'app_routes.dart';
 
@@ -21,6 +22,11 @@ class AppPages {
     GetPage(
       name: '/homeScreen',
       page: () => HomeScreen(),
+      // binding: HomeBinding(),
+    ),
+    GetPage(
+      name: '/SignUpScreen',
+      page: () => SignUpScreen(),
       // binding: HomeBinding(),
     ),
   ];

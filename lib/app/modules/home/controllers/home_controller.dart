@@ -2,14 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:owl_flutter/app/modules/home/models/constant.dart';
 import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
 
+  RxString userName = "".obs;
   RxString email = "".obs;
   RxString password = "".obs;
   RxBool rememberme = false.obs;
@@ -64,9 +67,46 @@ class HomeController extends GetxController {
     }
   }
 
+  void register() async {
+    Uri url = Uri.parse("https://flutter.ramarumah.id/register.php");
+    try {
+      final Response = await http.post(
+        url,
+        body: {
+          "username": userName.value,
+          "email": email.value,
+          "password": password.value,
+          // "content-type": "application/x-www-form-urlencoded",
+        },
+        headers: {
+          // "content-type": "form-data",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+      );
+
+      print((Response != null) ? "ada data" : "tidak ada data");
+      var hasil = json.decode(Response.body) as Map<String, dynamic>;
+
+      print(hasil);
+      int value = hasil["value"];
+      if (value == 1) {
+        Get.defaultDialog(
+          title: "Register",
+          middleText: "Register Berhasil Ditambahkan",
+          onConfirm: () => Get.back(),
+        );
+        print("Data Berhasil Ditambahkan");
+        Get.back();
+      } else {
+        print("Data Gagal");
+      }
+    } catch (err) {
+      print(err);
+    }
+  }
+
   // void login() {
   //   //ini dummy data
-
   //   if (email.value == "a@gmail.com" && password.value == "a") {
   //     if (box.read("dataLogin") != null) {
   //       //hapus data storage

@@ -8,6 +8,7 @@ import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
 import '../models/constant.dart';
 
 import '../controllers/home_controller.dart';
+import './widgets/signup_screen.dart';
 
 class HomeView extends GetView<HomeController> {
   @override

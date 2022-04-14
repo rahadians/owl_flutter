@@ -2,11 +2,17 @@
 
 import 'package:flutter/material.dart';
 
+class BaseUrl {
+  static const kLoginUrl = 'https://flutter.ramarumah.id/login.php';
+  static const kRegisterURL = 'https://flutter.ramarumah.id/register.php';
+}
+
 Color kLightgreen = Color(0xFFB2DBBF);
 Color kDarkerGreen = Color(0xFF70c1B3);
 Color kYellow = Color(0xFFF3FFBD);
 
 InputDecoration kTextFieldDecoration = InputDecoration(
+  contentPadding: EdgeInsets.only(left: 10),
   filled: true,
   fillColor: Color.fromRGBO(255, 255, 255, 0.3),
   focusColor: Color.fromRGBO(211, 211, 211, 1.0),
