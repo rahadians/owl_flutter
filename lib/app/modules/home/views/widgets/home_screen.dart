@@ -8,6 +8,12 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/Test');
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text("Home Screen View"),
       ),

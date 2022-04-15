@@ -1,13 +1,17 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:owl_flutter/app/modules/home/models/constant.dart';
 import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
@@ -18,9 +22,19 @@ class HomeController extends GetxController {
   RxBool rememberme = false.obs;
   RxInt nilai = 0.obs;
   RxBool secureText = true.obs;
+  RxString title = "".obs;
+
+  RxString content = "".obs;
+  RxString description = "".obs;
+  RxString idUser = "".obs;
+  late File imageFile;
 
   late TextEditingController emailC;
   late TextEditingController passwordC;
+  TextEditingController titleC = TextEditingController();
+  TextEditingController contentC = TextEditingController();
+  TextEditingController descC = TextEditingController();
+  final picker = ImagePicker();
 
   final box = GetStorage();
 
@@ -55,7 +69,8 @@ class HomeController extends GetxController {
           box.write("dataLogin", {
             "email": email.value,
             "password": password.value,
-            "rememberme": rememberme.value
+            "rememberme": rememberme.value,
+            "idUser": idUser.value,
           });
         }
         Get.toNamed("/homeScreen");
@@ -131,11 +146,63 @@ class HomeController extends GetxController {
     secureText.value = !secureText.value;
   }
 
+  // void selectImage() async {
+  //   final PickedFile = (await picker.pickImage(
+  //       source: ImageSource.gallery, maxHeight: 1920, maxWidth: 1080));
+
+  //   if (PickedFile != null) {
+  //     imageFile = File(PickedFile.path);
+  //   } else {
+  //     print("No Image Select");
+  //   }
+  // }
+
+  // void submitAddNews() async {
+  //   Uri url = Uri.parse("https://flutter.ramarumah.id/addNews.php");
+  //   try {
+  //     final Response = await http.MultipartFile('POST',url);
+  //     http.Request.files.add()
+
+  //       body: {
+  //         "username": userName.value,
+  //         "email": email.value,
+  //         "password": password.value,
+  //         // "content-type": "application/x-www-form-urlencoded",
+  //       },
+  //       headers: {
+  //         // "content-type": "form-data",
+  //         "content-type": "application/x-www-form-urlencoded",
+  //       },
+  //     );
+
+  //     print((Response != null) ? "ada data" : "tidak ada data");
+  //     var hasil = json.decode(Response.body) as Map<String, dynamic>;
+
+  //     print(hasil);
+  //     int value = hasil["value"];
+  //     if (value == 1) {
+  //       Get.defaultDialog(
+  //         title: "Register",
+  //         middleText: "Register Berhasil Ditambahkan",
+  //         onConfirm: () => Get.back(),
+  //       );
+  //       print("Data Berhasil Ditambahkan");
+  //       Get.back();
+  //     } else {
+  //       print("Data Gagal");
+  //     }
+  //   } catch (err) {
+  //     print(err);
+  //   }
+  // }
+
   @override
   void onInit() {
     emailC = TextEditingController();
     passwordC = TextEditingController();
-
+    titleC = TextEditingController();
+    contentC = TextEditingController();
+    descC = TextEditingController();
     // cekDataStorage();
     super.onInit();
   }
@@ -149,5 +216,8 @@ class HomeController extends GetxController {
   void onClose() {
     emailC.dispose();
     passwordC.dispose();
+    titleC.dispose();
+    contentC.dispose();
+    descC.dispose();
   }
 }
