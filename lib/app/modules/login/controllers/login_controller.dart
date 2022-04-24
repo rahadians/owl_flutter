@@ -69,7 +69,7 @@ class LoginController extends GetxController {
             "email": email.value,
             "password": password.value,
             "rememberme": rememberme.value,
-            "idUser": idUser.value,
+            "idUser": "36",
             "userName": userName.value,
           });
         }

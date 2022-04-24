@@ -50,15 +50,38 @@ class AddnewsController extends GetxController {
   Future<void> submit() async {
     try {
       idUser.value = box.read("dataLogin")["idUser"];
+      // var postUri = Uri.parse("https://flutter.ramarumah.id/addNews.php");
+
+      // http.MultipartRequest request =
+      //     new http.MultipartRequest("POST", postUri);
+
+      // http.MultipartFile multipartFile =
+      //     await http.MultipartFile.fromPath('file', selectedImagePath.value);
+
+      // request.files.add(multipartFile);
+
+      // http.StreamedResponse response = await request.send();
+
+      // print(response.statusCode);
+
+      idUser.value = box.read("dataLogin")["idUser"];
       Uri url = Uri.parse("https://flutter.ramarumah.id/addNews.php");
 
       var request = await http.MultipartRequest('POST', url);
       request.files.add(
           await http.MultipartFile.fromPath('image', selectedImagePath.value));
+
       request.fields['title'] = title.value;
       request.fields['content'] = content.value;
       request.fields['description'] = description.value;
-      request.fields['id_user'] = idUser.value;
+      request.fields['id_user'] = box.read("dataLogin")["idUser"];
+
+      // request.fields['title'] = "dua dua";
+      // request.fields['content'] = "content tiga";
+      // request.fields['description'] = "deskripsi tiga";
+      // request.fields['id_user'] = "2233";
+
+      print(idUser.runtimeType);
 
       var response = await request.send();
 
@@ -67,7 +90,7 @@ class AddnewsController extends GetxController {
       } else {
         print("Data salah");
       }
-      // print((Response != null) ? "ada data" : "tidak ada data");
+      print((Response != null) ? "ada data" : "tidak ada data");
       // var hasil = json.decode(request.body) as Map<String, dynamic>;
     } catch (err) {
       debugPrint("${err}");

@@ -15,8 +15,20 @@ import '../controllers/addnews_controller.dart';
 import './../../signup/views/signup_view.dart';
 
 class AddnewsView extends GetView<AddnewsController> {
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
+    if (box.read("dataLogin") != null) {
+      print("data addnews ada");
+      // final box = GetStorage();
+      // controller.idUser.value = box.read("dataLogin")["idUser"].toString();
+      print("------");
+      print(box.read("dataLogin")["idUser"]);
+      // print(controller.idUser.value);
+    } else {
+      print("data login tidak ada");
+    }
+
     // File _imageFile;
 
     final picker = ImagePicker();
