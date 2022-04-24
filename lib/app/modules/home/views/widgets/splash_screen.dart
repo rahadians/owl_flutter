@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:owl_flutter/app/modules/home/controllers/home_controller.dart';
-import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
-import '../../models/constant.dart';
+
+import '../../../../assets/models/constant.dart';
 
 class SplashScreen extends GetView<HomeController> {
   @override

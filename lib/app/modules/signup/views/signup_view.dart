@@ -1,18 +1,16 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:owl_flutter/app/modules/home/controllers/home_controller.dart';
-import 'package:owl_flutter/app/modules/home/views/widgets/home_screen.dart';
-import '../../models/constant.dart';
 
-class SignUpScreen extends GetView<HomeController> {
+import '../../../assets/models/constant.dart';
+import '../controllers/signup_controller.dart';
+
+class SignupView extends GetView<SignupController> {
   @override
-  final userNameC = TextEditingController();
-  final emailC = TextEditingController();
-  final passwordC = TextEditingController();
+  // final userNameC = TextEditingController();
+  // final emailC = TextEditingController();
+  // final passwordC = TextEditingController();
   final box = GetStorage();
 
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class SignUpScreen extends GetView<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      controller: userNameC,
+                      controller: controller.userNameC,
                       autocorrect: false,
                       keyboardType: TextInputType.text,
                       validator: (value) {
@@ -67,7 +65,7 @@ class SignUpScreen extends GetView<HomeController> {
                       height: 10,
                     ),
                     TextFormField(
-                      controller: emailC,
+                      controller: controller.emailC,
                       autocorrect: false,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -89,7 +87,7 @@ class SignUpScreen extends GetView<HomeController> {
                     ),
                     Obx(
                       () => TextFormField(
-                        controller: passwordC,
+                        controller: controller.passwordC,
                         autocorrect: false,
                         obscureText: controller.secureText.value,
                         validator: (value) {
@@ -129,7 +127,10 @@ class SignUpScreen extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                      onPressed: () => controller.register(),
+                      onPressed: () {
+                        controller.register();
+                        // Get.back();
+                      },
                       child: Text(
                         "Confirm ",
                         style: TextStyle(fontSize: 20, color: Colors.white),

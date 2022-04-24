@@ -12,9 +12,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:image_picker/image_picker.dart';
 
-import '../../signup/controllers/signup_controller.dart';
-
-class HomeController extends GetxController {
+class LoginController extends GetxController {
   //TODO: Implement HomeController
 
   RxString userName = "".obs;
@@ -72,11 +70,50 @@ class HomeController extends GetxController {
             "password": password.value,
             "rememberme": rememberme.value,
             "idUser": idUser.value,
+            "userName": userName.value,
           });
         }
         Get.toNamed("/homeScreen");
       } else {
         print("salah Username/Password");
+      }
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  void register() async {
+    Uri url = Uri.parse("https://flutter.ramarumah.id/register.php");
+    try {
+      final Response = await http.post(
+        url,
+        body: {
+          "username": userName.value,
+          "email": email.value,
+          "password": password.value,
+          // "content-type": "application/x-www-form-urlencoded",
+        },
+        headers: {
+          // "content-type": "form-data",
+          "content-type": "application/x-www-form-urlencoded",
+        },
+      );
+
+      print((Response != null) ? "ada data" : "tidak ada data");
+      var hasil = json.decode(Response.body) as Map<String, dynamic>;
+
+      print(hasil);
+      int value = hasil["value"];
+      if (value == 1) {
+        Get.defaultDialog(
+          title: "Register",
+          middleText: "Register Berhasil Ditambahkan",
+          onConfirm: () => Get.back(),
+        );
+        print("Data Berhasil Ditambahkan");
+        Get.back();
+      } else {
+        print("Data Gagal");
       }
     } catch (err) {
       print(err);

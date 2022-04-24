@@ -43,3 +43,9 @@ InputDecoration kTextFieldDecoration = InputDecoration(
     borderSide: BorderSide(color: Colors.green, width: 3.0),
   ),
 );
+
+var Placeholder = Container(
+  width: double.infinity,
+  height: 150,
+  child: Image.asset('dummyimage.png'),
+);
