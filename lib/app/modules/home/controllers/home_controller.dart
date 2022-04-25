@@ -18,14 +18,14 @@ import '../../signup/controllers/signup_controller.dart';
 class HomeController extends GetxController {
   RxString usernameAPI = "".obs;
   RxString idUser = "".obs;
-  RxList<NewsModel> allNewsData = List<NewsModel>.empty().obs;
-  List<NewsModel> semuadata = [];
+  RxList allNewsData = List.empty().obs;
+
   RxBool loading = false.obs;
 
-  Future<void> getNewsData() async {
+  getNewsData() async {
     allNewsData.clear(); //menghapus data list
     loading.value = true;
-
+    print("okee");
     Uri url = Uri.parse("https://flutter.ramarumah.id/detailNews.php");
     try {
       final response = await http.get(
@@ -34,29 +34,15 @@ class HomeController extends GetxController {
       print((response != null) ? "ada data" : "tidak ada data");
 
       if (response.statusCode == 200) {
-        print(response.body);
-        // var newsData = json.decode(response.body) as List;
+        var newsData = json.decode(response.body) as List;
 
-        // newsData.forEach((element) {
-        //   final listData = NewsModel(
-        //       idNews: element['id_news'],
-        //       image: element["image"],
-        //       title: element["title"],
-        //       content: element["content"],
-        //       description: element["description"],
-        //       // dateNews: element["date_news"],
-        //       idUser: element["id_user"],
-        //       username: element["username"]);
-        // });
-
-        print("--------");
-        // print(newsData);
-        // print(dataNote.length);
+        // allNewsData.value = List.from(newsData);
+        // allNewsData.refresh();
+        // allNewsData.add(newsData);
 
         allNewsData.refresh();
-
-        // print(allNewsData);
-        // print(newsData.runtimeType);
+        print("--------");
+        print(newsData.length);
 
         loading.value = false;
       } else {
@@ -65,5 +51,13 @@ class HomeController extends GetxController {
     } catch (err) {
       print(err);
     }
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+
+    super.onInit();
+    // getNewsData();
   }
 }
