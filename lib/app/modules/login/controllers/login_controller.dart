@@ -73,7 +73,7 @@ class LoginController extends GetxController {
             "userName": userName.value,
           });
         }
-        Get.toNamed("/homeScreen");
+        Get.offAllNamed("/homeScreen");
       } else {
         print("salah Username/Password");
       }

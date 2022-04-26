@@ -20,12 +20,12 @@ class HomeController extends GetxController {
   RxString idUser = "".obs;
   RxList allNewsData = List.empty().obs;
 
-  RxBool loading = false.obs;
+  RxBool isloading = false.obs;
 
   getNewsData() async {
     allNewsData.clear(); //menghapus data list
-    loading.value = true;
-    print("okee");
+    isloading.value = true;
+
     Uri url = Uri.parse("https://flutter.ramarumah.id/detailNews.php");
     try {
       final response = await http.get(
@@ -34,17 +34,32 @@ class HomeController extends GetxController {
       print((response != null) ? "ada data" : "tidak ada data");
 
       if (response.statusCode == 200) {
-        var newsData = json.decode(response.body) as List;
+        var newsData = json.decode(response.body);
 
         // allNewsData.value = List.from(newsData);
-        // allNewsData.refresh();
-        // allNewsData.add(newsData);
+        allNewsData.value = NewsModel.fromJsonList(newsData);
 
+        print(allNewsData.length);
+        // allNewsData.value.forEach((element) {
+        //   print(element['title']);
+        // });
+
+        for (var item in newsData) {
+          NewsModel(
+            idNews: item['id_news'],
+            // image: item['image'],
+            title: item['title'],
+            content: item['content'],
+            description: item['description'],
+            idUser: item['id_user'],
+            username: item['username'],
+          );
+        }
+
+        // }
         allNewsData.refresh();
-        print("--------");
-        print(newsData.length);
 
-        loading.value = false;
+        isloading.value = false;
       } else {
         print("Data salah");
       }

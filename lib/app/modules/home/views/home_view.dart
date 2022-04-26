@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owl_flutter/app/assets/models/newsmodel.dart';
 import 'package:owl_flutter/app/modules/home/controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -9,81 +10,64 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Uri url = Uri.parse("https://flutter.ramarumah.id/upload/");
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Get.toNamed('/addnews');
-            // Get.toNamed('/imagepicker');
-            controller.getNewsData();
-          },
-          child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Get.toNamed('/addnews');
+          // Get.toNamed('/imagepicker');
+          controller.getNewsData();
+          controller.isloading.value = false;
+        },
+        child: Icon(Icons.add),
+      ),
+      // appBar: AppBar(
+      //   toolbarHeight: 20,
+      // ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FutureBuilder(
+            future: controller.getNewsData(),
+            builder: ((context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Obx(() => (controller.allNewsData.isEmpty)
+                  ? Center(
+                      child: Text(
+                        "Data Tidak Ada",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () => controller.getNewsData(),
+                      child: (controller.isloading.value)
+                          ? CircularProgressIndicator()
+                          : ListView.builder(
+                              itemCount: controller.allNewsData.length,
+                              itemBuilder: (context, index) {
+                                NewsModel newsBody =
+                                    controller.allNewsData[index];
+                                return ListTile(
+                                    leading: CircleAvatar(
+                                        child: Image.network(
+                                          'https://picsum.photos/250?image=9',
+                                          fit: BoxFit.cover,
+                                        ),
+                                        backgroundColor: Colors.blue),
+                                    title: Text("${newsBody.title}"),
+                                    subtitle: Text("${newsBody.content}"),
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {},
+                                    ));
+                              }),
+                    ));
+            }),
+          ),
         ),
-        appBar: AppBar(
-          title: Text("Home Screen View"),
-        ),
-        body: RefreshIndicator(
-          onRefresh: () => controller.getNewsData(),
-          child: controller.loading.value
-              ? CircularProgressIndicator()
-              : ListView.builder(
-                  itemCount: controller.allNewsData.length,
-                  itemBuilder: (context, index) {
-                    final newsBody = controller.allNewsData[index];
-                    return Obx(() => Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 120,
-                                  height: 100,
-                                  margin: EdgeInsets.only(right: 20.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0)),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            "${url}${newsBody.image}"),
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        newsBody.title,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w800),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(newsBody.description),
-                                          Text('    '),
-                                          Text(newsBody.dateNews),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          ElevatedButton(
-                                            onPressed: () {},
-                                            child: Text(
-                                              "Edit",
-                                            ),
-                                          ),
-                                          Text('     |       '),
-                                          ElevatedButton(
-                                              onPressed: () {},
-                                              child: Text("Delete"))
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ]),
-                        ));
-                  }),
-        ));
+      ),
+    );
   }
 }

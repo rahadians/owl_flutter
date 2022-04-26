@@ -11,7 +11,7 @@ String newsModelToJson(NewsModel data) => json.encode(data.toJson());
 class NewsModel {
   NewsModel({
     required this.idNews,
-    required this.image,
+    // required this.image,
     required this.title,
     required this.content,
     required this.description,
@@ -21,7 +21,7 @@ class NewsModel {
   });
 
   String idNews;
-  String image;
+  // String image;
   String title;
   String content;
   String description;
@@ -31,7 +31,7 @@ class NewsModel {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
         idNews: json["id_news"],
-        image: json["image"],
+        // image: json["image"],
         title: json["title"],
         content: json["content"],
         description: json["description"],
@@ -42,7 +42,7 @@ class NewsModel {
 
   Map<String, dynamic> toJson() => {
         "id_news": idNews,
-        "image": image,
+        // "image": image,
         "title": title,
         "content": content,
         "description": description,
