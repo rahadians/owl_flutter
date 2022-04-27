@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 class BaseUrl {
+  static const Baseurl = 'https://flutter.ramarumah.id/flutter/';
   static const kLoginUrl = 'https://flutter.ramarumah.id/login.php';
   static const kRegisterURL = 'https://flutter.ramarumah.id/register.php';
 }

@@ -8,6 +8,8 @@ abstract class Routes {
   static const SIGNUP = _Paths.SIGNUP;
   static const LOGIN = _Paths.LOGIN;
   static const IMAGEPICKER = _Paths.IMAGEPICKER;
+  static const README_NEWS = _Paths.README_NEWS;
+  static const EDITNEWS = _Paths.EDITNEWS;
 }
 
 abstract class _Paths {
@@ -17,4 +19,6 @@ abstract class _Paths {
   static const SIGNUP = '/signup';
   static const LOGIN = '/login';
   static const IMAGEPICKER = '/imagepicker';
+  static const README_NEWS = '/readme-news';
+  static const EDITNEWS = '/editnews';
 }

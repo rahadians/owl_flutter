@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:owl_flutter/app/assets/models/constant.dart';
 import 'package:owl_flutter/app/assets/models/newsmodel.dart';
+import 'package:owl_flutter/app/assets/models/readnews.dart';
 import 'package:owl_flutter/app/modules/home/controllers/home_controller.dart';
+import 'package:owl_flutter/app/routes/app_pages.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -49,19 +52,30 @@ class HomeView extends GetView<HomeController> {
                               itemBuilder: (context, index) {
                                 NewsModel newsBody =
                                     controller.allNewsData[index];
-                                return ListTile(
-                                    leading: CircleAvatar(
-                                        child: Image.network(
-                                          'https://picsum.photos/250?image=9',
-                                          fit: BoxFit.cover,
-                                        ),
-                                        backgroundColor: Colors.blue),
-                                    title: Text("${newsBody.title}"),
-                                    subtitle: Text("${newsBody.content}"),
-                                    trailing: IconButton(
-                                      icon: Icon(Icons.delete),
-                                      onPressed: () {},
-                                    ));
+                                return InkWell(
+                                  onTap: () {
+                                    Get.toNamed(Routes.README_NEWS, arguments: [
+                                      {
+                                        "title": newsBody.title,
+                                        "content": newsBody.content,
+                                        "id_news": newsBody.idNews.toString()
+                                      },
+                                    ]);
+                                  },
+                                  child: ListTile(
+                                      leading: CircleAvatar(
+                                          child: Image.network(
+                                            'https://picsum.photos/250?image=9',
+                                            fit: BoxFit.cover,
+                                          ),
+                                          backgroundColor: Colors.blue),
+                                      title: Text("${newsBody.title}"),
+                                      subtitle: Text("${newsBody.content}"),
+                                      trailing: IconButton(
+                                        icon: Icon(Icons.delete),
+                                        onPressed: () {},
+                                      )),
+                                );
                               }),
                     ));
             }),

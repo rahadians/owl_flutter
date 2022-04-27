@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/addnews/bindings/addnews_binding.dart';
 import '../modules/addnews/views/addnews_view.dart';
+import '../modules/editnews/bindings/editnews_binding.dart';
+import '../modules/editnews/views/editnews_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/views/widgets/splash_screen.dart';
@@ -10,6 +12,8 @@ import '../modules/imagepicker/bindings/imagepicker_binding.dart';
 import '../modules/imagepicker/views/imagepicker_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/readme_news/bindings/readme_news_binding.dart';
+import '../modules/readme_news/views/readme_news_view.dart';
 import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 
@@ -65,6 +69,16 @@ class AppPages {
       name: _Paths.IMAGEPICKER,
       page: () => ImagepickerView(),
       binding: ImagepickerBinding(),
+    ),
+    GetPage(
+      name: _Paths.README_NEWS,
+      page: () => ReadmeNewsView(),
+      binding: ReadmeNewsBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITNEWS,
+      page: () => EditnewsView(),
+      binding: EditnewsBinding(),
     ),
   ];
 }
