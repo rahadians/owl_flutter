@@ -22,7 +22,7 @@ class HomeController extends GetxController {
 
   RxBool isloading = false.obs;
 
-  getNewsData() async {
+  Future getNewsData() async {
     allNewsData.clear(); //menghapus data list
     isloading.value = true;
 
@@ -71,8 +71,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-
-    super.onInit();
     // getNewsData();
+    super.onInit();
   }
 }

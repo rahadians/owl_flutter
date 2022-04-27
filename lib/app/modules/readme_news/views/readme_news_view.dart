@@ -50,13 +50,34 @@ class ReadmeNewsView extends GetView<ReadmeNewsController> {
             body: Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Text(
+                    "Content",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
                   Text(
                     "${newsBody[0]["content"]}",
                     textAlign: TextAlign.justify,
                   ),
                   SizedBox(height: 20),
+                  Text(
+                    "Description",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    "${newsBody[0]["description"]}",
+                    textAlign: TextAlign.justify,
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

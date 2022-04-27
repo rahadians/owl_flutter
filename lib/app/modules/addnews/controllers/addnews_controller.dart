@@ -8,13 +8,13 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../../../assets/models/constant.dart';
+import '../../home/controllers/home_controller.dart';
 
 class AddnewsController extends GetxController {
   RxString title = "".obs;
   RxString content = "".obs;
   RxString description = "".obs;
   RxString idUser = "".obs;
-  RxString desc = "".obs;
 
   XFile? ambilGambar;
 
@@ -23,6 +23,8 @@ class AddnewsController extends GetxController {
   var selectedImageSize = ''.obs;
   var selectedImageName = ''.obs;
   final box = GetStorage();
+
+  final HomeC = Get.find<HomeController>();
 
   TextEditingController titleC = TextEditingController();
   TextEditingController contentC = TextEditingController();
@@ -81,11 +83,11 @@ class AddnewsController extends GetxController {
       // request.fields['description'] = "deskripsi tiga";
       // request.fields['id_user'] = "2233";
 
-      print(idUser.runtimeType);
-
       var response = await request.send();
 
       if (response.statusCode == 200) {
+        HomeC.getNewsData();
+        Get.back();
         print("uploading sukses");
       } else {
         print("Data salah");

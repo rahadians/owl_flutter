@@ -7,7 +7,9 @@ import 'package:owl_flutter/app/modules/home/controllers/home_controller.dart';
 import 'package:owl_flutter/app/routes/app_pages.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  final HomeC = Get.find<HomeController>();
+
+  // const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,28 +17,28 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Get.toNamed('/addnews');
+          Get.toNamed('/addnews');
           // Get.toNamed('/imagepicker');
-          controller.getNewsData();
+          // controller.getNewsData();
           controller.isloading.value = false;
         },
         child: Icon(Icons.add),
       ),
-      // appBar: AppBar(
-      //   toolbarHeight: 20,
-      // ),
+      appBar: AppBar(
+        toolbarHeight: 20,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: FutureBuilder(
-            future: controller.getNewsData(),
+            future: HomeC.getNewsData(),
             builder: ((context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              return Obx(() => (controller.allNewsData.isEmpty)
+              return Obx(() => (HomeC.allNewsData.isEmpty)
                   ? Center(
                       child: Text(
                         "Data Tidak Ada",
@@ -44,20 +46,20 @@ class HomeView extends GetView<HomeController> {
                       ),
                     )
                   : RefreshIndicator(
-                      onRefresh: () => controller.getNewsData(),
-                      child: (controller.isloading.value)
+                      onRefresh: () => HomeC.getNewsData(),
+                      child: (HomeC.isloading.value)
                           ? CircularProgressIndicator()
                           : ListView.builder(
-                              itemCount: controller.allNewsData.length,
+                              itemCount: HomeC.allNewsData.length,
                               itemBuilder: (context, index) {
-                                NewsModel newsBody =
-                                    controller.allNewsData[index];
+                                NewsModel newsBody = HomeC.allNewsData[index];
                                 return InkWell(
                                   onTap: () {
                                     Get.toNamed(Routes.README_NEWS, arguments: [
                                       {
                                         "title": newsBody.title,
                                         "content": newsBody.content,
+                                        "description": newsBody.description,
                                         "id_news": newsBody.idNews.toString()
                                       },
                                     ]);

@@ -22,6 +22,7 @@ class LoginController extends GetxController {
   RxInt nilai = 0.obs;
   RxBool secureText = true.obs;
   RxString title = "".obs;
+  RxString userId = "".obs;
 
   RxString content = "".obs;
   RxString description = "".obs;
@@ -45,6 +46,7 @@ class LoginController extends GetxController {
         body: {
           "email": email.value,
           "password": password.value,
+
           // "content-type": "application/x-www-form-urlencoded",
         },
         headers: {
@@ -52,11 +54,11 @@ class LoginController extends GetxController {
           "content-type": "application/x-www-form-urlencoded",
         },
       );
-
+      print(Response);
       print((Response != null) ? "ada data" : "tidak ada data");
       var hasil = json.decode(Response.body) as Map<String, dynamic>;
       int value = hasil["value"];
-      print(hasil);
+
       if (value == 1) {
         if (box.read("dataLogin") != null) {
           //hapus data storage
@@ -69,7 +71,7 @@ class LoginController extends GetxController {
             "email": email.value,
             "password": password.value,
             "rememberme": rememberme.value,
-            "idUser": "36",
+            "idUser": hasil["id_user"],
             "userName": userName.value,
           });
         }
@@ -102,7 +104,6 @@ class LoginController extends GetxController {
       print((Response != null) ? "ada data" : "tidak ada data");
       var hasil = json.decode(Response.body) as Map<String, dynamic>;
 
-      print(hasil);
       int value = hasil["value"];
       if (value == 1) {
         Get.defaultDialog(
@@ -120,81 +121,9 @@ class LoginController extends GetxController {
     }
   }
 
-  // void login() {
-  //   //ini dummy data
-  //   if (email.value == "a@gmail.com" && password.value == "a") {
-  //     if (box.read("dataLogin") != null) {
-  //       //hapus data storage
-  //       box.remove("dataLogin");
-  //     }
-  //     if (rememberme.isTrue) {
-  //       //kalau dichecklist simpan data ke get storage
-  //       final box = GetStorage();
-  //       box.write("dataLogin", {
-  //         "email": email.value,
-  //         "password": password.value,
-  //         "rememberme": rememberme.value
-  //       });
-  //     }
-  //     Get.toNamed("/homeScreen");
-  //   } else {
-  //     print("salah password");
-  //   }
-  // }
-
   void showHideText() {
     secureText.value = !secureText.value;
   }
-
-  // void selectImage() async {
-  //   final PickedFile = (await picker.pickImage(
-  //       source: ImageSource.gallery, maxHeight: 1920, maxWidth: 1080));
-
-  //   if (PickedFile != null) {
-  //     imageFile = File(PickedFile.path);
-  //   } else {
-  //     print("No Image Select");
-  //   }
-  // }
-
-  // void submitAddNews() async {
-  //   Uri url = Uri.parse("https://flutter.ramarumah.id/addNews.php");
-  //   try {
-  //     final Response = await http.MultipartFile('POST',url);
-  //     http.Request.files.add()
-
-  //       body: {
-  //         "username": userName.value,
-  //         "email": email.value,
-  //         "password": password.value,
-  //         // "content-type": "application/x-www-form-urlencoded",
-  //       },
-  //       headers: {
-  //         // "content-type": "form-data",
-  //         "content-type": "application/x-www-form-urlencoded",
-  //       },
-  //     );
-
-  //     print((Response != null) ? "ada data" : "tidak ada data");
-  //     var hasil = json.decode(Response.body) as Map<String, dynamic>;
-
-  //     print(hasil);
-  //     int value = hasil["value"];
-  //     if (value == 1) {
-  //       Get.defaultDialog(
-  //         title: "Register",
-  //         middleText: "Register Berhasil Ditambahkan",
-  //         onConfirm: () => Get.back(),
-  //       );
-  //       print("Data Berhasil Ditambahkan");
-  //       Get.back();
-  //     } else {
-  //       print("Data Gagal");
-  //     }
-  //   } catch (err) {
-  //     print(err);
-  //   }
-  // }
 
   @override
   void onInit() {

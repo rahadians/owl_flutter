@@ -23,6 +23,7 @@ class EditnewsView extends GetView<EditnewsController> {
   Widget build(BuildContext context) {
     controller.titleTextC.text = homeC.title.value;
     controller.contentTextC.text = homeC.content.value;
+    controller.descTextC.text = homeC.description.value;
     // controller.titleTextC.text = argRead[0]["title"] ;
     // controller.contentTextC.text = argRead.content;
 
@@ -39,7 +40,7 @@ class EditnewsView extends GetView<EditnewsController> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
-        print(homeC.idNews.value);
+        print(controller.descTextC.text);
       }),
       appBar: AppBar(),
       body: SafeArea(
@@ -94,7 +95,7 @@ class EditnewsView extends GetView<EditnewsController> {
               controller: controller.descTextC,
               decoration:
                   kTextFieldDecoration.copyWith(labelText: "Description"),
-              onChanged: (value) => value = controller.desc.value,
+              onChanged: (value) => value = controller.description.value,
             ),
             SizedBox(
               height: 20,

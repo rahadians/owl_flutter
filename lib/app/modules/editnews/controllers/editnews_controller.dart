@@ -98,9 +98,12 @@ class EditnewsController extends GetxController {
 
   getDataToEdit() async {
     try {
-      titleTextC = await title.value as TextEditingController;
-      contentTextC = await content.value as TextEditingController;
-      descTextC = await description.value as TextEditingController;
+      // titleTextC = await title.value as TextEditingController;
+      // contentTextC = await content.value as TextEditingController;
+      // descTextC = await description.value as TextEditingController;
+
+      print("-- - - -");
+      print(descTextC.text);
     } catch (err) {
       print(err);
     }

@@ -10,6 +10,7 @@ import 'package:owl_flutter/app/modules/signup/controllers/signup_controller.dar
 import '../../../assets/models/constant.dart';
 
 import 'package:owl_flutter/app/modules/signup/views/signup_view.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/addnews_controller.dart';
 
 import './../../signup/views/signup_view.dart';
@@ -34,6 +35,7 @@ class AddnewsView extends GetView<AddnewsController> {
     final picker = ImagePicker();
 
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(children: [
@@ -85,7 +87,7 @@ class AddnewsView extends GetView<AddnewsController> {
               controller: controller.desC,
               decoration:
                   kTextFieldDecoration.copyWith(labelText: "Description"),
-              onChanged: (value) => controller.desc.value = value,
+              onChanged: (value) => controller.description.value = value,
             ),
             SizedBox(
               height: 20,

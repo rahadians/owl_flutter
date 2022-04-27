@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -33,6 +35,9 @@ class LoginView extends GetView<LoginController> {
     }
 
     return Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          print(box.read("dataLogin"));
+        }),
         backgroundColor: kLightgreen,
         appBar: AppBar(
           title: Text('Owl Flutter'),
